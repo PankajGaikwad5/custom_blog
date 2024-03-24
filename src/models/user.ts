@@ -39,27 +39,7 @@ const userSchema = new Schema<UserDocument>(
   { timestamps: true }
 );
 
-// const UserModel: Model<UserDocument> =
-//   mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
-// connectMongoDB().then(() => {
-//   const UserModel: Model<UserDocument> =
-//     mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
-
-//   // Now you can use UserModel for database operations
-// });
-
-// Define UserModel as a variable outside of the connectMongoDB function
-let UserModel: Model<UserDocument>;
-
-// Call connectMongoDB to establish the database connection and define UserModel
-connectMongoDB()
-  .then(() => {
-    UserModel =
-      mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-    process.exit(1); // Exit the process if connection fails
-  });
+const UserModel: Model<UserDocument> =
+  mongoose.models.User || mongoose.model<UserDocument>('User', userSchema);
 
 export default UserModel;
