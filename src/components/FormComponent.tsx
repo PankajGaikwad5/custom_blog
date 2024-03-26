@@ -1,16 +1,10 @@
 'use client';
 
-// import { z } from "zod"
-
-// const formSchema = z.object({
-//   username: z.string().min(2).max(50),
-// })
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
-import { signIn } from 'next-auth/react';
+import { SignInResponse, signIn } from 'next-auth/react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -23,16 +17,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useState } from 'react';
-
-const formSchema = z.object({
-  username: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-  passwords: z.string().min(2, {
-    message: 'Username must be at least 2 characters.',
-  }),
-});
+import { FormEvent, useState } from 'react';
+import formSchema from './loginSchema';
 
 export function FormComponent({ register }: { register?: boolean }) {
   const [username, setUsername] = useState('');
@@ -47,14 +33,7 @@ export function FormComponent({ register }: { register?: boolean }) {
       passwords: '',
     },
   });
-
-  // 2. Define a submit handler.
-  // function onSubmit(values: z.infer<typeof formSchema>) {
-  //   // Do something with the form values.
-  //   // ✅ This will be type-safe and validated.
-  //   console.log(values);
-  // }
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     if (!username || !passwords) {
@@ -87,8 +66,6 @@ export function FormComponent({ register }: { register?: boolean }) {
         });
 
         if (res.ok) {
-          // const formTarget = e.target;
-          // formTarget.reset();
           setUsername('');
           setPasswords('');
           router.push('/');
@@ -100,9 +77,9 @@ export function FormComponent({ register }: { register?: boolean }) {
       }
     } else {
       try {
-        const res = await signIn('credentials', {
+        const res: SignInResponse = await signIn('credentials', {
           username,
-          passwords,
+          password: passwords,
           redirect: false,
         });
         if (res.error) {
@@ -128,7 +105,7 @@ export function FormComponent({ register }: { register?: boolean }) {
             <FormField
               control={form.control}
               name='username'
-              render={({ field }) => (
+              render={({ field }: { field: any }) => (
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
@@ -158,8 +135,8 @@ export function FormComponent({ register }: { register?: boolean }) {
             />
             <FormField
               control={form.control}
-              name='passwords'
-              render={({ field }) => (
+              name='passwd: passwordsd'
+              render={({ field }: { field: any }) => (
                 <FormItem>
                   <FormLabel>Passwords</FormLabel>
                   <FormControl>

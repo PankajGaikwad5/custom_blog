@@ -1,31 +1,35 @@
-import mongoose, { Schema, Document, Model, models } from 'mongoose';
-import { connectMongoDB } from '@/lib/mongodb';
+import mongoose from 'mongoose';
 
-export interface UserDocument extends Document {
+export interface BlogDocument extends mongoose.Document {
   title: string;
-  blog: string;
-  image: ImageData;
+  // description: string;
+  // image: Buffer;
+  // tags: string[];
 }
 
-const userSchema = new Schema<UserDocument>(
+const blogSchema = new mongoose.Schema<BlogDocument>(
   {
     title: {
       type: String,
       required: true,
     },
-    blog: {
-      type: String,
-      required: true,
-    },
-    image: {
-      type: Image,
-      required: true,
-    },
+    // description: {
+    //   type: String,
+    //   required: true,
+    // },
+    // image: {
+    //   type: Buffer,
+    //   required: true,
+    // },
+    // tags: {
+    //   type: [String],
+    // },
   },
   { timestamps: true }
 );
 
-const BlogModel: Model<UserDocument> =
-  mongoose.models.User || mongoose.model<UserDocument>('Blog', userSchema);
+// const BlogModel: Model<BlogDocument> =
+//   mongoose.models.User || mongoose.model<BlogDocument>('Blog', blogSchema);
 
-export default BlogModel;
+export default mongoose.models.Blog ||
+  mongoose.model<BlogDocument>('Blog', blogSchema);

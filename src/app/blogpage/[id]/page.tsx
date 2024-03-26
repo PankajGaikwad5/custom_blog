@@ -13,7 +13,7 @@ import {
   markdownContentBlog,
 } from '../../../components/markdownContent';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../../api/auth/[...nextauth]/authOptions';
+import { authOptions } from '../../../components/authOptions';
 import { redirect } from 'next/navigation';
 
 export default async function BlogPage() {
@@ -27,9 +27,9 @@ export default async function BlogPage() {
     'cursor-pointer text-gray-800 hover:text-gray-600 text-2xl';
   const session = await getServerSession(authOptions);
 
-  if (!session) {
-    redirect('/');
-  }
+  // if (!session) {
+  //   redirect('/');
+  // }
 
   return (
     <div className='flex justify-center p-2'>

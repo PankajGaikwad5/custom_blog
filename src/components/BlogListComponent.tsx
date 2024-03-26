@@ -11,12 +11,12 @@ export default function BlogListComponent({
   tags,
 }: {
   id: number;
-  profile: string;
+  profile?: string;
   title: string;
-  description: string;
+  description?: string;
   date: number;
-  img: string;
-  tags: string[];
+  img?: string;
+  tags?: string[];
 }) {
   const currentDate = new Date(date);
   return (

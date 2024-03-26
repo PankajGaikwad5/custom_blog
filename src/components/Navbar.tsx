@@ -1,15 +1,13 @@
 'use client';
 import React from 'react';
-import { signOut } from 'next-auth/react';
-import { getServerSession } from 'next-auth';
-import { authOptions } from '../app/api/auth/[...nextauth]/authOptions';
+import { signOut, useSession } from 'next-auth/react';
 
 type Props = {};
 
-const Navbar = async (props: Props) => {
+const Navbar = (props: Props) => {
   const list = ['home', 'projects', 'videos'];
   const [nav, setNav] = React.useState(false);
-  const session = await getServerSession(authOptions);
+  const session = useSession();
 
   return (
     <div className='fixed w-full bg-[#FFC017] text-5xl text-black border-b-2 border-black p-5 z-10'>
@@ -28,7 +26,7 @@ const Navbar = async (props: Props) => {
               </li>
             );
           })}
-          {session ? (
+          {session.data ? (
             <button
               className='uppercase hover:text-blue-400 duration-200'
               onClick={() => signOut()}
@@ -67,21 +65,24 @@ const Navbar = async (props: Props) => {
               </li>
             );
           })}
-          <li
-            className='text-4xl py-6 transition-all hover:border-b-2 border-white duration-100 cursor-pointer uppercase'
-            onClick={() => setNav(!nav)}
-          >
-            <a href={`/`}>login</a>
-          </li>
-          <li
-            className='text-4xl py-6 transition-all hover:border-b-2 border-white duration-100 cursor-pointer uppercase'
-            onClick={() => {
-              setNav(!nav);
-              signOut();
-            }}
-          >
-            logout
-          </li>
+          {session.data ? (
+            <li
+              className='text-4xl py-6 transition-all hover:border-b-2 border-white duration-100 cursor-pointer uppercase'
+              onClick={() => {
+                setNav(!nav);
+                signOut();
+              }}
+            >
+              logout
+            </li>
+          ) : (
+            <li
+              className='text-4xl py-6 transition-all hover:border-b-2 border-white duration-100 cursor-pointer uppercase'
+              onClick={() => setNav(!nav)}
+            >
+              <a href={`/`}>login</a>
+            </li>
+          )}
         </ul>
       </div>
     </div>
