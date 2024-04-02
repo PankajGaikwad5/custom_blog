@@ -2,7 +2,7 @@ import { connectMongoDB } from '@/lib/mongodb';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import User from '../models/user';
 import bcrypt from 'bcryptjs';
-import loginSchema from '@/components/loginSchema';
+import { loginSchema } from '@/components/loginSchema';
 import { SessionStrategy } from 'next-auth';
 
 export const authOptions = {
@@ -10,8 +10,8 @@ export const authOptions = {
     CredentialsProvider({
       name: 'credentials',
       credentials: {
-        username: {
-          label: 'username',
+        email: {
+          label: 'email',
           type: 'text',
         },
         password: {
@@ -22,10 +22,10 @@ export const authOptions = {
       async authorize(credentials) {
         // const user = { id: '1' };
         const creds = await loginSchema.parseAsync(credentials);
-        const { username, password } = creds;
+        const { email, password } = creds;
         try {
           await connectMongoDB();
-          const user = await User.findOne({ username });
+          const user = await User.findOne({ email });
           if (!user) {
             return null;
           }
@@ -45,7 +45,7 @@ export const authOptions = {
   callbacks: {
     jwt: async ({ token, user }: { token: any; user: any }) => {
       if (user) {
-        token.username = user.username;
+        token.email = user.email;
       }
       return token;
     },

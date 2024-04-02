@@ -1,4 +1,4 @@
-import { FormComponent } from '@/components/FormComponent';
+import { LoginFormComponent } from '@/components/LoginFormComponent';
 import React from 'react';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
@@ -13,7 +13,7 @@ export default async function Register({}: Props) {
   }
   return (
     <div>
-      <FormComponent register={true} />
+      <LoginFormComponent register={true} />
     </div>
   );
 }

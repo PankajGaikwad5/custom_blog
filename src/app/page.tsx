@@ -1,4 +1,4 @@
-import { FormComponent } from '../components/FormComponent';
+import { LoginFormComponent } from '../components/LoginFormComponent';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../components/authOptions';
@@ -10,7 +10,7 @@ export default async function Home() {
   }
   return (
     <div>
-      <FormComponent />
+      <LoginFormComponent />
     </div>
   );
 }

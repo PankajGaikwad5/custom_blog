@@ -1,6 +1,7 @@
 import BlogListComponent from '../../components/BlogListComponent';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/components/authOptions';
+import { Button } from '@/components/ui/button';
 
 const getTopics = async () => {
   try {
@@ -20,20 +21,26 @@ const getTopics = async () => {
 export default async function Blog() {
   const session = await getServerSession(authOptions);
   const { blog } = await getTopics();
+  console.log(session);
   return (
-    <div className='flex flex-col justify-center '>
+    <div className='flex flex-col justify-center'>
+      <div className='flex items-end justify-end px-24'>
+        <a href='/uploadblog'>
+          <Button className='bg-green-600'>NEW POST</Button>
+        </a>
+      </div>
       {blog.map((item: any) => {
         return (
           <BlogListComponent
             key={item._id}
             id={item._id}
-            profile={session.username}
+            profile={item.profile}
             description={item.description}
             title={item.title}
             img={
               'https://miro.medium.com/v2/resize:fill:200:134/1*RI-yJwMtTsycOmC2Nh-JJw.png'
             }
-            date={new Date().getTime()}
+            date={item.createdAt}
             tags={item.tags}
           />
         );

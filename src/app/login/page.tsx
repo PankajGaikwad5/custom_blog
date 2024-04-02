@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormComponent } from '../../components/FormComponent';
+import { LoginFormComponent } from '../../components/LoginFormComponent';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../components/authOptions';
@@ -13,7 +13,7 @@ export default async function Login({}: Props) {
   // }
   return (
     <div>
-      <FormComponent />
+      <LoginFormComponent />
     </div>
   );
 }

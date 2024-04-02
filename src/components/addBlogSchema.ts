@@ -6,8 +6,13 @@ const addBlogSchema = z.object({
   description: z.string().min(2, {
     message: 'description must be at least 2 characters.',
   }),
-  tags: z.string().min(2, {
-    message: 'tags must be at least 2 characters.',
-  }),
+  // tags: z.string().min(2, {
+  //   message: 'tags must be at least 2 characters.',
+  // }),
+  tags: z.array(
+    z.string().min(2, {
+      message: 'Each tag must be at least 2 characters.',
+    })
+  ),
 });
 export default addBlogSchema;

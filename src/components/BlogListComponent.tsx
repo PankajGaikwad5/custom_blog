@@ -18,22 +18,26 @@ export default function BlogListComponent({
   img?: string;
   tags?: string[];
 }) {
-  const currentDate = new Date(date);
+  // const currentDate = new Date(date);
+  const currentDate = new Date(date); // Convert Unix timestamp to milliseconds
   return (
     <div className='w-full flex justify-center md:items-start p-4 md:px-32 my-4 text-xs md:text-base'>
       <div className='flex flex-col'>
         <a href={`/blogpage/${id}`}>
           <div className='flex items-center'>
             <BsPersonCircle className='text-xl' />
-            <h6 className='text-sm ml-2'>{profile}</h6>
+            <h6 className='text-lg font-bold ml-2'>{profile}</h6>
           </div>
           <h2 className='text-lg font-semibold my-1'>{title}</h2>
-          <p className='hidden md:block text-gray-500'>{description}</p>
+          <p className=' text-gray-500 line-clamp-2'>{description}</p>
         </a>
         <div className='flex md:justify-between text-gray-500 md:mt-3'>
-          <div className='flex'>
-            <p className='mr-3'>{currentDate.getUTCDate()}d</p>
-            <p className='mr-3'>{`${currentDate.getHours()}:${currentDate.getMinutes()}`}</p>
+          <div className='flex gap-3'>
+            <p className=''>
+              {currentDate.getUTCDate()}/<span>{currentDate.getMonth()}</span>/
+              <span>{currentDate.getFullYear()}</span>
+            </p>
+            <p className=''>{`${currentDate.getHours()}:${currentDate.getMinutes()}`}</p>
             <p>{tags}</p>
           </div>
           <div className='flex'>
