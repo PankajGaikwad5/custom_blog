@@ -14,6 +14,10 @@ export const authOptions = {
           label: 'email',
           type: 'text',
         },
+        username: {
+          label: 'username',
+          type: 'text',
+        },
         password: {
           label: 'password',
           type: 'password',

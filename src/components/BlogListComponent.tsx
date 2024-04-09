@@ -21,8 +21,11 @@ export default function BlogListComponent({
   // const currentDate = new Date(date);
   const currentDate = new Date(date); // Convert Unix timestamp to milliseconds
   return (
-    <div className='w-full flex justify-center md:items-start p-4 md:px-32 my-4 text-xs md:text-base'>
-      <div className='flex flex-col'>
+    <div
+      className='w-3/4 flex justify-center items-center p-4 md:px-32 my-4 text-xs md:text-base'
+      key={id}
+    >
+      <div className='flex flex-col rounded-md p-4'>
         <a href={`/blogpage/${id}`}>
           <div className='flex items-center'>
             <BsPersonCircle className='text-xl' />
@@ -53,7 +56,7 @@ export default function BlogListComponent({
       <img
         src={img}
         alt=''
-        className='w-[100px] md:w-auto h-[100px] md:h-auto object-contain ml-2 md:ml-14'
+        className='w-[100px] h-[100px] md:h-auto object-contain ml-2 md:ml-14'
       />
     </div>
   );

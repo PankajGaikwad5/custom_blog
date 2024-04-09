@@ -21,69 +21,29 @@ const getTopics = async () => {
 export default async function Blog() {
   const session = await getServerSession(authOptions);
   const { blog } = await getTopics();
-  console.log(session);
   return (
-    <div className='flex flex-col justify-center'>
-      <div className='flex items-end justify-end px-24'>
+    <>
+      <div className='flex items-end text-end justify-end px-24'>
         <a href='/uploadblog'>
-          <Button className='bg-green-600'>NEW POST</Button>
+          <Button className='bg-green-600 m-2'>NEW POST</Button>
         </a>
       </div>
-      {blog.map((item: any) => {
-        return (
-          <BlogListComponent
-            key={item._id}
-            id={item._id}
-            profile={item.profile}
-            description={item.description}
-            title={item.title}
-            img={
-              'https://miro.medium.com/v2/resize:fill:200:134/1*RI-yJwMtTsycOmC2Nh-JJw.png'
-            }
-            date={item.createdAt}
-            tags={item.tags}
-          />
-        );
-      })}
-      {/* <BlogListComponent
-        id={2}
-        profile={'username...'}
-        description={
-          'description Lorem ipsum dolor sit amet consectetur adipisicing elit.Dignissimos.'
-        }
-        title={'Lorem ipsum dolor sit amet consectetur'}
-        img={
-          'https://miro.medium.com/v2/resize:fill:200:134/1*RI-yJwMtTsycOmC2Nh-JJw.png'
-        }
-        date={new Date().getTime()}
-        tags={['tags here']}
-      />
-      <BlogListComponent
-        id={3}
-        profile={'username...'}
-        description={
-          'description Lorem ipsum dolor sit amet consectetur adipisicing elit.Dignissimos.'
-        }
-        title={'Lorem ipsum dolor sit amet consectetur'}
-        img={
-          'https://miro.medium.com/v2/resize:fill:200:134/1*RI-yJwMtTsycOmC2Nh-JJw.png'
-        }
-        date={new Date().getTime()}
-        tags={['tags here']}
-      />
-      <BlogListComponent
-        id={4}
-        profile={'username...'}
-        description={
-          'description Lorem ipsum dolor sit amet consectetur adipisicing elit.Dignissimos.'
-        }
-        title={'Lorem ipsum dolor sit amet consectetur'}
-        img={
-          'https://miro.medium.com/v2/resize:fill:200:134/1*RI-yJwMtTsycOmC2Nh-JJw.png'
-        }
-        date={new Date().getTime()}
-        tags={['tags here']}
-      /> */}
-    </div>
+      <div className='flex flex-col items-center justify-center'>
+        {blog.map((item: any) => {
+          return (
+            <BlogListComponent
+              key={item._id}
+              id={item._id}
+              profile={item.profile}
+              description={item.description}
+              title={item.title}
+              img={item.image}
+              date={item.createdAt}
+              tags={item.tags}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 }
