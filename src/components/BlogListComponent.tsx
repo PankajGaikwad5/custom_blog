@@ -22,7 +22,7 @@ export default function BlogListComponent({
   const currentDate = new Date(date); // Convert Unix timestamp to milliseconds
   return (
     <div
-      className='w-3/4 flex justify-center items-center p-4 md:px-32 my-4 text-xs md:text-base'
+      className='w-3/4 flex justify-start items-center p-4 md:px-32 my-4 text-xs md:text-base'
       key={id}
     >
       <div className='flex flex-col rounded-md p-4'>

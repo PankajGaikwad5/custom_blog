@@ -51,6 +51,7 @@ export interface BlogDocument extends mongoose.Document {
   image: string;
   profile: string;
   tags: string[];
+  comment: string[];
   file: Buffer;
 }
 
@@ -76,6 +77,9 @@ const blogSchema = new mongoose.Schema<BlogDocument>(
       required: true,
     },
     tags: {
+      type: [String],
+    },
+    comment: {
       type: [String],
     },
     // file: {

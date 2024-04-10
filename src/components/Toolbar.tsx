@@ -85,63 +85,7 @@ export function Toolbar({ editor, content }: Props) {
         >
           <Underline className='w-5 h-5' />
         </Button>
-        {/* Heading */}
-        {/* <Button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleHeading({ level: 2 }).run();
-          }}
-          className={
-            editor.isActive('heading')
-              ? 'bg-sky-700 text-white  rounded-lg'
-              : 'text-sky-400'
-          }
-        >
-          <Heading2 className='w-5 h-5' />
-        </Button> */}
-        {/* Unordered List */}
-        {/* <Button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleBulletList().run();
-          }}
-          className={
-            editor.isActive('bulletList')
-              ? 'bg-sky-700 text-white  rounded-lg'
-              : 'text-sky-400'
-          }
-        >
-          <List className='w-5 h-5' />
-        </Button> */}
-        {/* Ordered List */}
-        {/* <Button
-          onClick={(e) => {
-            e.preventDefault();
-            editor.chain().focus().toggleOrderedList().run();
-          }}
-          className={
-            editor.isActive('orderedList')
-              ? 'bg-sky-700 text-white  rounded-lg'
-              : 'text-sky-400'
-          }
-        >
-          <ListOrdered className='w-5 h-5' />
-        </Button> */}
-        {/* Blockquote */}
-        {/* <Button
-          onClick={(e) => {
-            e.preventDefault();
-            // editor.chain().focus().toggleBlockquote().run();
-            editor.chain().focus().toggleBlockquote().run();
-          }}
-          className={
-            editor.isActive('blockquote')
-              ? 'bg-sky-700 text-white  rounded-lg'
-              : 'text-sky-400'
-          }
-        >
-          <Quote className='w-5 h-5' />
-        </Button> */}
+
         {/* Code */}
         <Button
           onClick={(e) => {

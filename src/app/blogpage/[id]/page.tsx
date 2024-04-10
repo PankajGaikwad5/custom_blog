@@ -93,6 +93,9 @@ export default async function BlogPage({ params }: { params: any }) {
             className='blog_content'
             dangerouslySetInnerHTML={{ __html: blog.blog }}
           />
+          <div>
+            <h1>{blog.comment}</h1>
+          </div>
         </div>
       </div>
     </div>
