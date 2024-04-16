@@ -4,10 +4,9 @@ import { authOptions } from '@/components/authOptions';
 
 export default async function UploadBlog() {
   const session = await getServerSession(authOptions);
-  console.log(session.user.username);
   return (
     <div className='flex justify-center'>
-      <BlogForms user={session.user.email} />
+      <BlogForms user={session.user.username} />
     </div>
   );
 }

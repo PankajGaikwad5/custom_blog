@@ -5,7 +5,7 @@ import { signOut, useSession } from 'next-auth/react';
 type Props = {};
 
 const Navbar = (props: Props) => {
-  const list = ['home', 'projects', 'videos'];
+  const list = ['home'];
   const [nav, setNav] = React.useState(false);
   const session = useSession();
 

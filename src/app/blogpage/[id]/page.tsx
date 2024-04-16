@@ -4,9 +4,12 @@ import { MdOutlineBookmarkAdd } from 'react-icons/md';
 import { FaRegComments } from 'react-icons/fa';
 import { RiShareForwardLine } from 'react-icons/ri';
 import { IoPlayCircleOutline } from 'react-icons/io5';
-import './index.scss';
+import AddComment from '@/components/AddComment';
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/components/authOptions';
 
 export default async function BlogPage({ params }: { params: any }) {
+  const session = await getServerSession(authOptions);
   const iconClasses =
     'cursor-pointer text-gray-800 hover:text-gray-600 text-2xl';
 
@@ -34,9 +37,11 @@ export default async function BlogPage({ params }: { params: any }) {
   return (
     <div className='flex justify-center p-2'>
       <div className='md:w-1/2 flex flex-col'>
-        <div className='blog_title'>
+        <div className='text-[2.25rem] font-bold leading-10'>
           <h1>{blog.title}</h1>
-          <p>{blog.description}</p>
+          <p className='text-lg leading-7 mt-2 mb-2 text-gray-700 dark:text-gray-500'>
+            {blog.description}
+          </p>
         </div>
 
         <div className='flex my-4 items-center'>
@@ -90,11 +95,22 @@ export default async function BlogPage({ params }: { params: any }) {
         </div>
         <div className='font-semibold'>
           <div
-            className='blog_content'
+            className='my-4'
             dangerouslySetInnerHTML={{ __html: blog.blog }}
           />
           <div>
-            <h1>{blog.comment}</h1>
+            <AddComment id={id} user={session.user.username} />
+            {blog.comments.map((item: any) => {
+              return (
+                <div className='my-4  border-2 rounded-lg p-4' key={item.id}>
+                  <div className='flex items-center gap-2'>
+                    <BsPersonCircle className='text-xl' />
+                    <h6 className='text-lg font-bold '>{item.profile}</h6>
+                  </div>
+                  <p className=' text-gray-500 line-clamp-2'>{item.comment}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

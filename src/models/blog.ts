@@ -1,49 +1,5 @@
 import mongoose from 'mongoose';
 
-// export interface BlogDocument extends mongoose.Document {
-//   title: string;
-//   description: string;
-//   blog: string;
-//   profile: string;
-//   // image: Buffer;
-//   tags: string[];
-// }
-
-// const blogSchema = new mongoose.Schema<BlogDocument>(
-//   {
-//     title: {
-//       type: String,
-//       required: true,
-//     },
-//     description: {
-//       type: String,
-//       required: true,
-//     },
-//     blog: {
-//       type: String,
-//       required: true,
-//     },
-//     profile: {
-//       type: String,
-//       required: true,
-//     },
-//     // image: {
-//     //   type: Buffer,
-//     //   required: true,
-//     // },
-//     tags: {
-//       type: [String],
-//     },
-//   },
-//   { timestamps: true }
-// );
-
-// // const BlogModel: Model<BlogDocument> =
-// //   mongoose.models.User || mongoose.model<BlogDocument>('Blog', blogSchema);
-
-// export default mongoose.models.Blog ||
-//   mongoose.model<BlogDocument>('Blog', blogSchema);
-
 export interface BlogDocument extends mongoose.Document {
   title: string;
   description: string;
@@ -51,7 +7,7 @@ export interface BlogDocument extends mongoose.Document {
   image: string;
   profile: string;
   tags: string[];
-  comment: string[];
+  comments: Comment[];
   file: Buffer;
 }
 
@@ -79,13 +35,22 @@ const blogSchema = new mongoose.Schema<BlogDocument>(
     tags: {
       type: [String],
     },
-    comment: {
-      type: [String],
-    },
-    // file: {
-    //   type: Buffer,
-    //   required: false,
+    // comments: {
+    //   type: [{ String }],
     // },
+    comments: {
+      type: [{ profile: String, comment: String }],
+    },
+    // comments: [
+    //   {
+    //     profile: {
+    //       type: String,
+    //     },
+    //     comment: {
+    //       type: String,
+    //     },
+    //   },
+    // ],
   },
   { timestamps: true }
 );

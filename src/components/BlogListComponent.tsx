@@ -25,11 +25,11 @@ export default function BlogListComponent({
       className='w-3/4 flex justify-start items-center p-4 md:px-32 my-4 text-xs md:text-base'
       key={id}
     >
-      <div className='flex flex-col rounded-md p-4'>
+      <div className='w-4/5 flex flex-col rounded-md p-4'>
         <a href={`/blogpage/${id}`}>
-          <div className='flex items-center'>
+          <div className='flex items-center gap-2'>
             <BsPersonCircle className='text-xl' />
-            <h6 className='text-lg font-bold ml-2'>{profile}</h6>
+            <h6 className='text-lg font-bold '>{profile}</h6>
           </div>
           <h2 className='text-lg font-semibold my-1'>{title}</h2>
           <p className=' text-gray-500 line-clamp-2'>{description}</p>
@@ -56,7 +56,7 @@ export default function BlogListComponent({
       <img
         src={img}
         alt=''
-        className='w-[100px] h-[100px] md:h-auto object-contain ml-2 md:ml-14'
+        className='w-[100px] h-[100px] md:h-auto object-contain  '
       />
     </div>
   );

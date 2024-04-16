@@ -11,9 +11,14 @@ export async function GET(req: NextRequest, { params }: { params: any }) {
 
 export async function PUT(req: NextRequest, { params }: { params: any }) {
   const { id } = params;
-  const { comment } = await req.json();
+  const { profile, comment } = await req.json();
   await connectMongoDB();
-  // await BlogModel.findByIdAndUpdate(id, { comment });
-  await BlogModel.findByIdAndUpdate(id, { comment });
+  console.log(id);
+  console.log(comment);
+  await BlogModel.findByIdAndUpdate(
+    id,
+    { $push: { comments: { profile, comment } } },
+    { new: true }
+  );
   return NextResponse.json({ msg: 'updated' }, { status: 200 });
 }
