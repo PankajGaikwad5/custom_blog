@@ -13,7 +13,7 @@ const Navbar = (props: Props) => {
     <div className='fixed w-full bg-[#FFC017] text-5xl text-black border-b-2 border-black p-5 z-10'>
       <div className='flex justify-between'>
         <a href='./'>
-          <h1 className='text-xl'>HEADER</h1>
+          <h1 className='text-xl'>BLOG</h1>
         </a>
         <ul className='hidden md:flex space-x-4 text-lg'>
           {list.map((list, index) => {

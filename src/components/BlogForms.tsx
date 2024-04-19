@@ -81,6 +81,7 @@ export default function BlogForms({ user }: { user: string }) {
       tags,
       profile,
       image,
+      likes: 0,
     };
 
     try {

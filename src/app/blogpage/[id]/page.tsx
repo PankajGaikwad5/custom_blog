@@ -7,30 +7,17 @@ import { IoPlayCircleOutline } from 'react-icons/io5';
 import AddComment from '@/components/AddComment';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/components/authOptions';
+import { getBlogById } from '@/components/getBlogById';
+import LikesComponent from '@/components/LikesComponent';
 
 export default async function BlogPage({ params }: { params: any }) {
   const session = await getServerSession(authOptions);
   const iconClasses =
     'cursor-pointer text-gray-800 hover:text-gray-600 text-2xl';
 
-  const getBlogById = async (id: any) => {
-    try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/blog/${id}`,
-        {
-          cache: 'no-store',
-        }
-      );
-      if (!res.ok) {
-        throw new Error('Failed to fetch blog');
-      }
-      return res.json();
-    } catch (error) {
-      console.log(error);
-    }
-  };
   const { id } = params;
   const { blog } = await getBlogById(id);
+
   const date = blog.createdAt;
   const currentDate = new Date(date);
 
@@ -65,22 +52,20 @@ export default async function BlogPage({ params }: { params: any }) {
         </div>
         <div className='flex items-center justify-between py-4 my-2 border-y-2 border-gray-200'>
           <div className='flex'>
-            <div className='flex mr-4 space-x-2'>
-              <PiHandsClappingLight className={iconClasses} />
-              <p
-                className={'cursor-pointer text-gray-800  hover:text-gray-600'}
-              >
-                2.9k
-              </p>
-            </div>
-            <div className='flex space-x-2'>
-              <FaRegComments className={iconClasses} />
-              <p
-                className={'cursor-pointer text-gray-800  hover:text-gray-600'}
-              >
-                67
-              </p>
-            </div>
+            <LikesComponent id={id} />
+            <a href='#comments'>
+              <div className='flex space-x-2'>
+                <FaRegComments className={iconClasses} />
+
+                <p
+                  className={
+                    'cursor-pointer text-gray-800  hover:text-gray-600'
+                  }
+                >
+                  {blog.comments.length}
+                </p>
+              </div>
+            </a>
           </div>
           <div className='flex space-x-2'>
             <MdOutlineBookmarkAdd className={iconClasses} />
@@ -98,21 +83,21 @@ export default async function BlogPage({ params }: { params: any }) {
             className='my-4'
             dangerouslySetInnerHTML={{ __html: blog.blog }}
           />
-          <div>
-            <AddComment id={id} user={session.user.username} />
-            {blog.comments.map((item: any) => {
-              return (
-                <div className='my-4  border-2 rounded-lg p-4' key={item.id}>
-                  <div className='flex items-center gap-2'>
-                    <BsPersonCircle className='text-xl' />
-                    <h6 className='text-lg font-bold '>{item.profile}</h6>
-                  </div>
-                  <p className=' text-gray-500 line-clamp-2'>{item.comment}</p>
-                </div>
-              );
-            })}
-          </div>
         </div>
+        <section id='comments'>
+          <AddComment id={id} user={session.user.username} />
+          {blog.comments.map((item: any) => {
+            return (
+              <div className='my-4  border-2 rounded-lg p-4' key={item.id}>
+                <div className='flex items-center gap-2'>
+                  <BsPersonCircle className='text-xl' />
+                  <h6 className='text-lg font-bold '>{item.profile}</h6>
+                </div>
+                <p className=' text-gray-500 line-clamp-2'>{item.comment}</p>
+              </div>
+            );
+          })}
+        </section>
       </div>
     </div>
   );

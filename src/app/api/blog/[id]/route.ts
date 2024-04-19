@@ -11,14 +11,18 @@ export async function GET(req: NextRequest, { params }: { params: any }) {
 
 export async function PUT(req: NextRequest, { params }: { params: any }) {
   const { id } = params;
-  const { profile, comment } = await req.json();
+  const { profile, comment, likes } = await req.json();
   await connectMongoDB();
   console.log(id);
   console.log(comment);
-  await BlogModel.findByIdAndUpdate(
-    id,
-    { $push: { comments: { profile, comment } } },
-    { new: true }
-  );
+  if (comment) {
+    await BlogModel.findByIdAndUpdate(
+      id,
+      { $push: { comments: { profile, comment } } },
+      { new: true }
+    );
+  } else {
+    await BlogModel.findByIdAndUpdate(id, { likes: likes + 1 });
+  }
   return NextResponse.json({ msg: 'updated' }, { status: 200 });
 }

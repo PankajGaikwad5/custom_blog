@@ -7,6 +7,7 @@ export interface BlogDocument extends mongoose.Document {
   image: string;
   profile: string;
   tags: string[];
+  likes: number;
   comments: Comment[];
   file: Buffer;
 }
@@ -34,6 +35,9 @@ const blogSchema = new mongoose.Schema<BlogDocument>(
     },
     tags: {
       type: [String],
+    },
+    likes: {
+      type: Number,
     },
     // comments: {
     //   type: [{ String }],

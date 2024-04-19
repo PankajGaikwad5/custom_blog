@@ -12,7 +12,7 @@ const getTopics = async () => {
     if (!res.ok) {
       throw new Error('failed to fetch topics');
     }
-    return await res.json();
+    return res.json();
   } catch (error) {
     console.log(error);
   }
@@ -21,6 +21,11 @@ const getTopics = async () => {
 export default async function Blog() {
   const session = await getServerSession(authOptions);
   const { blog } = await getTopics();
+  blog.sort(
+    (a: any, b: any) =>
+      new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+  );
+
   return (
     <>
       <div className='flex items-end text-end justify-end px-24'>
